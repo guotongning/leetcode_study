@@ -15,7 +15,8 @@ public class Main {
     public static void main(String[] args) {
 //        System.out.println(search(ORDERLY_NUMS, 11));
 //        System.out.println(removeElement(ORDERLY_NUMS, 5));
-        System.out.println(minSubArrayLen(ORDERLY_NUMS, 15));
+//        System.out.println(minSubArrayLen(ORDERLY_NUMS, 15));
+        System.out.println(Arrays.deepToString(generateMatrix(3)));
     }
 
     /**
@@ -107,5 +108,51 @@ public class Main {
             }
         }
         return len == Integer.MAX_VALUE ? 0 : len;
+    }
+
+    /**
+     * 给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+     * 示例1
+     * 输入：n = 3
+     * 输出：[[1,2,3],[8,9,4],[7,6,5]]
+     * 示例2
+     * 输入：n = 1
+     * 输出：[[1]]
+     */
+    public static int[][] generateMatrix(int n) {
+        int[][] matrix = new int[n][n];
+        int len = n - 1, val = 1, sx = 0, sy = 0;
+        if (n == 1) {
+            return new int[][]{{1}};
+        }
+        while (len > 0) {
+            int x = sx, y = sy;
+            //填充上边
+            for (int i = 0; i < len; i++) {
+                matrix[x][y++] = val++;
+            }
+            //填充右边
+            for (int i = 0; i < len; i++) {
+                matrix[x++][y] = val++;
+            }
+            //填充下边
+            for (int i = 0; i < len; i++) {
+                matrix[x][y--] = val++;
+            }
+            //填充左边
+            for (int i = 0; i < len; i++) {
+                matrix[x--][y] = val++;
+            }
+            //一圈填充完，调整边长。
+            len -= 2;
+            //定义新一圈的坐标起点
+            sx++;
+            sy++;
+        }
+        //n为奇数的时候，填充中心
+        if (n % 2 == 1) {
+            matrix[sx][sy] = n * n;
+        }
+        return matrix;
     }
 }
