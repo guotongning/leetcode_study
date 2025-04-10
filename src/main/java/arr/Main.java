@@ -11,11 +11,13 @@ public class Main {
      * 有序数组
      */
     public static final int[] ORDERLY_NUMS = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    public static final int[] ORDERLY_NUMS1 = new int[]{-4,-1,0,3,10};
 
     public static void main(String[] args) {
-//        System.out.println(search(ORDERLY_NUMS, 11));
-//        System.out.println(removeElement(ORDERLY_NUMS, 5));
-//        System.out.println(minSubArrayLen(ORDERLY_NUMS, 15));
+        System.out.println(search(ORDERLY_NUMS, 11));
+        System.out.println(removeElement(ORDERLY_NUMS, 5));
+        System.out.println(Arrays.toString(square(ORDERLY_NUMS1)));
+        System.out.println(minSubArrayLen(ORDERLY_NUMS, 15));
         System.out.println(Arrays.deepToString(generateMatrix(5)));
     }
 
@@ -156,7 +158,4 @@ public class Main {
         return matrix;
     }
 
-    public static void rangeSum() {
-
-    }
 }
