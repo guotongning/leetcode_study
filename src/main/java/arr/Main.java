@@ -16,7 +16,7 @@ public class Main {
 //        System.out.println(search(ORDERLY_NUMS, 11));
 //        System.out.println(removeElement(ORDERLY_NUMS, 5));
 //        System.out.println(minSubArrayLen(ORDERLY_NUMS, 15));
-        System.out.println(Arrays.deepToString(generateMatrix(3)));
+        System.out.println(Arrays.deepToString(generateMatrix(5)));
     }
 
     /**
@@ -154,5 +154,9 @@ public class Main {
             matrix[sx][sy] = n * n;
         }
         return matrix;
+    }
+
+    public static void rangeSum() {
+
     }
 }
