@@ -15,8 +15,11 @@ public class Main {
         System.out.println(newHead);
         newHead = swapPairs(newHead);
         System.out.println(newHead);
-        ListNode build = ListNode.build(1,2);
+        ListNode build = ListNode.build(1, 2);
         System.out.println(removeNthFromEnd(build, 2));
+        ListNode build1 = ListNode.build(3);
+        ListNode build2 = ListNode.build(2, 3);
+        System.out.println(getIntersectionNode(build1, build2));
 
         MyLinkedList myLinkedList = new MyLinkedList();
         myLinkedList.addAtHead(7);
@@ -178,5 +181,79 @@ public class Main {
             l.next = l.next.next;
         }
         return dummy.next;
+    }
+
+    /**
+     * 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。
+     * 题目数据 保证 整个链式结构中不存在环。
+     * 注意，函数返回结果后，链表必须 保持其原始结构 。
+     * 示例1
+     * 输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
+     * 输出：Intersected at '8'
+     * 解释：相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。
+     * 从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。
+     * 在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。
+     * 示例2
+     * 输入：intersectVal = 2, listA = [0,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
+     * 输出：Intersected at '2'
+     * 解释：相交节点的值为 2 （注意，如果两个链表相交则不能为 0）。
+     * 从各自的表头开始算起，链表 A 为 [0,9,1,2,4]，链表 B 为 [3,2,4]。
+     * 在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。
+     * 提示：
+     * listA 中节点数目为 m
+     * listB 中节点数目为 n
+     * 0 <= m, n <= 3 * 104
+     * 1 <= Node.val <= 105
+     * 0 <= skipA <= m
+     * 0 <= skipB <= n
+     * 如果 listA 和 listB 没有交点，intersectVal 为 0
+     * 如果 listA 和 listB 有交点，intersectVal == listA[skipA + 1] == listB[skipB + 1]
+     * 进阶：你能否设计一个时间复杂度 O(n) 、仅用 O(1) 内存的解决方案？
+     * 思路：求出两链表长度，然后尾部对齐。双指针向后循环遍历，遇到地址相同则找到交点。
+     */
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        //计算两链表长度
+        int lenA = 1;
+        ListNode tempA = headA;
+        while (tempA.next != null) {
+            tempA = tempA.next;
+            lenA++;
+        }
+        int lenB = 1;
+        ListNode tempB = headB;
+        while (tempB.next != null) {
+            tempB = tempB.next;
+            lenB++;
+        }
+        if (lenA == lenB && lenA == 1 && headA.equals(headB)) {
+            return headA;
+        }
+        //极端长度差值，对齐指针
+        ListNode curA = headA;
+        ListNode curB = headB;
+        if (lenA > lenB) {
+            int diffStep = lenA - lenB;
+            for (int i = 0; i < diffStep; i++) {
+                curA = curA.next;
+            }
+        } else if (lenA < lenB) {
+            int diffStep = lenB - lenA;
+            for (int i = 0; i < diffStep; i++) {
+                curB = curB.next;
+            }
+        }
+        //循环对比，找交点。
+        while (curA != null && curB != null) {
+            if (curA.equals(curB)) {
+                return curA;
+            } else {
+                curA = curA.next;
+                curB = curB.next;
+            }
+        }
+        return null;
     }
 }
