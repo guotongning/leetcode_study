@@ -271,13 +271,15 @@ public class Main {
         }
         ListNode slow = head;
         ListNode fast = head;
+        //快慢指针，快指针step=2，慢指针step=1，如果相遇，则说明有环。
         while (fast != null) {
             slow = slow.next;
-            if (fast.next != null) {
-                fast = fast.next.next;
-            } else {
+            //不是环链，退出循环
+            if (fast.next == null) {
                 break;
             }
+            fast = fast.next.next;
+            //是环链，退出循环
             if (slow.equals(fast)) {
                 break;
             }
@@ -285,6 +287,7 @@ public class Main {
         if (fast == null || fast.next == null) {
             return null;
         }
+        //按照公式推导，从相遇点step=1和起点step=1出发的两个指针，相遇的地方就是环的起点。
         ListNode indexHead = head;
         ListNode indexComeAcross = slow;
         while (!indexHead.equals(indexComeAcross)) {
