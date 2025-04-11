@@ -11,7 +11,8 @@ public class Main {
         System.out.println(removeElements1(head, 6));
         ListNode newHead = reverseList(head);
         System.out.println(newHead);
-        System.out.println(reverseListRecursion(newHead));
+        newHead = reverseListRecursion(newHead);
+        System.out.println(swapPairs(newHead));
 
         MyLinkedList myLinkedList = new MyLinkedList();
         myLinkedList.addAtHead(7);
@@ -102,6 +103,39 @@ public class Main {
         temp = cur.next;
         cur.next = pre;
         return reverse(cur, temp);
+    }
+
+    /**
+     * 两两交换链表中的节点
+     * 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
+     * 输入：head = [1,2,3,4]
+     * 输出：[2,1,4,3]
+     * 输入：head = []
+     * 输出：[]
+     * 输入：head = [1]
+     * 输出：[1]
+     */
+    public static ListNode swapPairs(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode cur = dummy;
+        ListNode temp;
+        ListNode left;
+        ListNode right;
+        while (cur.next != null && cur.next.next != null) {
+            temp = cur.next.next.next;
+            left = cur.next;
+            right = cur.next.next;
+            //交换
+            cur.next = right;
+            right.next = left;
+            left.next = temp;
+            cur = left;
+        }
+        return dummy.next;
     }
 
 }
