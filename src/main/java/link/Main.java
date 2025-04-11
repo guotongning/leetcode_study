@@ -9,7 +9,9 @@ public class Main {
         ListNode head = ListNode.build(1, 2, 6, 3, 4, 5, 6);
         System.out.println(removeElements(head, 6));
         System.out.println(removeElements1(head, 6));
-
+        ListNode newHead = reverseList(head);
+        System.out.println(newHead);
+        System.out.println(reverseListRecursion(newHead));
 
         MyLinkedList myLinkedList = new MyLinkedList();
         myLinkedList.addAtHead(7);
@@ -64,5 +66,42 @@ public class Main {
         return dummy.next;
     }
 
+    /**
+     * 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+     * 双指针
+     */
+    public static ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode cur = head;
+        ListNode pre = null;
+        ListNode temp;
+        while (cur != null) {
+            temp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = temp;
+        }
+        return pre;
+    }
+
+    /**
+     * 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+     * 正向递归
+     */
+    public static ListNode reverseListRecursion(ListNode head) {
+        return reverse(null, head);
+    }
+
+    private static ListNode reverse(ListNode pre, ListNode cur) {
+        if (cur == null) {
+            return pre;
+        }
+        ListNode temp = null;
+        temp = cur.next;
+        cur.next = pre;
+        return reverse(cur, temp);
+    }
 
 }
