@@ -8,6 +8,21 @@ public class Main {
     public static void main(String[] args) {
         ListNode head = ListNode.build(1, 2, 6, 3, 4, 5, 6);
         System.out.println(removeElements(head, 6));
+        System.out.println(removeElements1(head, 6));
+
+
+        MyLinkedList myLinkedList = new MyLinkedList();
+        myLinkedList.addAtHead(7);
+        myLinkedList.addAtHead(2);
+        myLinkedList.addAtHead(1);
+        myLinkedList.addAtIndex(3, 0);
+        myLinkedList.deleteAtIndex(2);
+        myLinkedList.addAtHead(6);
+        myLinkedList.addAtTail(4);
+        myLinkedList.get(4);
+        myLinkedList.addAtHead(4);
+        myLinkedList.addAtIndex(5, 0);
+        myLinkedList.addAtHead(6);
     }
 
     /**
@@ -31,4 +46,23 @@ public class Main {
         }
         return head;
     }
+
+    /**
+     * 虚拟头节点
+     */
+    public static ListNode removeElements1(ListNode head, int val) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode cur = dummy;
+        while (cur.next != null) {
+            if (cur.next.val == val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return dummy.next;
+    }
+
+
 }
