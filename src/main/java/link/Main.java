@@ -12,7 +12,11 @@ public class Main {
         ListNode newHead = reverseList(head);
         System.out.println(newHead);
         newHead = reverseListRecursion(newHead);
-        System.out.println(swapPairs(newHead));
+        System.out.println(newHead);
+        newHead = swapPairs(newHead);
+        System.out.println(newHead);
+        ListNode build = ListNode.build(1,2);
+        System.out.println(removeNthFromEnd(build, 2));
 
         MyLinkedList myLinkedList = new MyLinkedList();
         myLinkedList.addAtHead(7);
@@ -138,4 +142,41 @@ public class Main {
         return dummy.next;
     }
 
+    /**
+     * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+     * 示例 1:
+     * 输入：head = [1,2,3,4,5], n = 2
+     * 输出：[1,2,3,5]
+     * 示例 2：
+     * 输入：head = [1], n = 1
+     * 输出：[]
+     * 示例 3：
+     * 输入：head = [1,2], n = 1
+     * 输出：[1]
+     * 思路：快慢指针，两指针间隔n。
+     */
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return null;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode l = dummy;
+        ListNode r = dummy;
+        for (int i = 0; i < n; i++) {
+            r = r.next;
+        }
+        if (r == null) {
+            return null;
+        }
+        while (r.next != null) {
+            l = l.next;
+            r = r.next;
+        }
+        //删除
+        if (l.next != null) {
+            l.next = l.next.next;
+        }
+        return dummy.next;
+    }
 }
