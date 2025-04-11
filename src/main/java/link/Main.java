@@ -256,4 +256,41 @@ public class Main {
         }
         return null;
     }
+
+    /**
+     * 给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+     * 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
+     * 不允许修改 链表。
+     * 思路：
+     * 判断是否有环：快慢指针，如果快慢指针相遇，则说明有环。
+     * 找到交点（推导过程省略）：从头结点出发一个指针，从相遇节点 也出发一个指针，这两个指针每次只走一个节点， 那么当这两个指针相遇的时候就是 环形入口的节点。
+     */
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null) {
+            slow = slow.next;
+            if (fast.next != null) {
+                fast = fast.next.next;
+            } else {
+                break;
+            }
+            if (slow.equals(fast)) {
+                break;
+            }
+        }
+        if (fast == null || fast.next == null) {
+            return null;
+        }
+        ListNode indexHead = head;
+        ListNode indexComeAcross = slow;
+        while (!indexHead.equals(indexComeAcross)) {
+            indexHead = indexHead.next;
+            indexComeAcross = indexComeAcross.next;
+        }
+        return indexHead;
+    }
 }
