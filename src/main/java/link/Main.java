@@ -284,7 +284,7 @@ public class Main {
                 break;
             }
         }
-        if (fast == null || fast.next == null) {
+        if (fast.next == null) {
             return null;
         }
         //按照公式推导，从相遇点step=1和起点step=1出发的两个指针，相遇的地方就是环的起点。
