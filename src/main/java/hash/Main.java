@@ -1,14 +1,20 @@
 package main.java.hash;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * hash表相关的算法题
  */
 public class Main {
     public static void main(String[] args) {
+//        System.out.println(happyNum(19));
+//        int[] nums = new int[]{0, 0, 0};
+//        List<List<Integer>> res = threeSum(nums);
+//        System.out.println(res);
+
+        int[] nums1 = new int[]{3, 0, -2, -1, 1, 2};
+        List<List<Integer>> lists = threeSum(nums1);
+        System.out.println(lists);
     }
 
     /**
@@ -88,4 +94,108 @@ public class Main {
         }
         return res;
     }
+
+    /**
+     * 快乐数
+     * 编写一个算法来判断一个数 n 是不是快乐数。
+     * <p>
+     * 「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。
+     * <p>
+     * 如果 n 是快乐数就返回 True ；不是，则返回 False 。
+     * <p>
+     * 示例：
+     * <p>
+     * 输入：19
+     * 输出：true
+     * 解释：
+     * 1^2 + 9^2 = 82
+     * 8^2 + 2^2 = 68
+     * 6^2 + 8^2 = 100
+     * 1^2 + 0^2 + 0^2 = 1
+     * <p>
+     * #
+     */
+    public static boolean happyNum(int num) {
+        Set<String> nums = new HashSet<>();
+        return check(num + "", nums);
+    }
+
+    public static boolean check(String num, Set<String> nums) {
+        int sum = 0;
+        for (char c : num.toCharArray()) {
+            int n = c - '0';
+            sum += n * n;
+        }
+        if (sum == 1) {
+            return true;
+        }
+        num = sum + "";
+        if (nums.add(num)) {
+            return check(num, nums);
+        }
+        return false;
+    }
+
+    /**
+     * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+     * <p>
+     * 注意： 答案中不可以包含重复的三元组。
+     * <p>
+     * 示例：
+     * <p>
+     * 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+     * <p>
+     * 满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]
+     * <p>
+     */
+    public static List<List<Integer>> threeNumSum(int[] nums, int target) {
+        if (nums.length == 0 || nums.length == 1) {
+            return new ArrayList<>();
+        }
+        Arrays.sort(nums);
+        //a + b + c = 0 等同于 a = -(b + c)
+        for (int i = 0; i < nums.length - 3; i++) {
+
+        }
+        return null;
+    }
+
+    public static List<List<Integer>> threeSum(int[] nums) {
+        if (nums.length == 0 || nums.length == 1) {
+            return new ArrayList<>();
+        }
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                continue;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int l = i + 1;
+            int r = nums.length - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    //对l和r进行去重
+                    while (l < r && nums[l] == nums[l + 1]) {
+                        l++;
+                    }
+                    while (l < r && nums[r] == nums[r - 1]) {
+                        r--;
+                    }
+                    r--;
+                    l++;
+                } else if (sum > 0) {
+                    r--;
+                } else {
+                    l++;
+                }
+            }
+        }
+        return res;
+    }
+
 }
