@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
         int[] arr = new int[]{5, 7, 9, 8, 3, 2, 4};
         TreeNode treeNode = buildTree(arr);
-//        printTree(treeNode);
-//        printTree(flipTree(treeNode));
+        printTree(treeNode);
+        printTree(flipTree(treeNode));
+        printTree(flipTree(treeNode));
         List<Integer> resPre = preIterTree(treeNode);
         System.out.println(resPre);
         List<Integer> resSuf = sufIterTree(treeNode);
@@ -80,7 +81,7 @@ public class Main {
         in : 4 //9右节点不为空，4入栈。判断4左节点为空。出栈
         out: 4 //4右边节点为空，出栈，栈为空，结束。
         sum out: 8 7 3 5 2 9 4
-        总结思路：入栈忘左迭代，出栈往右迭代。
+        总结思路：入栈往左迭代，出栈往右迭代。
          */
         List<Integer> res = new ArrayList<>();
         if (root == null) {
@@ -118,6 +119,9 @@ public class Main {
         return res;
     }
 
+    /**
+     * 反转二叉树
+     */
     public static TreeNode flipTree(TreeNode root) {
         if (root == null) {
             return null;

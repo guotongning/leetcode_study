@@ -85,7 +85,7 @@ public class Main {
         ListNode cur = head;
         ListNode pre = null;
         ListNode temp;
-        while (cur != null) {
+        while (cur.next != null) {
             temp = cur.next;
             cur.next = pre;
             pre = cur;
@@ -106,8 +106,7 @@ public class Main {
         if (cur == null) {
             return pre;
         }
-        ListNode temp = null;
-        temp = cur.next;
+        ListNode temp = cur.next;
         cur.next = pre;
         return reverse(cur, temp);
     }

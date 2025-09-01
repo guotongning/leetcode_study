@@ -148,18 +148,6 @@ public class Main {
      * 满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]
      * <p>
      */
-    public static List<List<Integer>> threeNumSum(int[] nums, int target) {
-        if (nums.length == 0 || nums.length == 1) {
-            return new ArrayList<>();
-        }
-        Arrays.sort(nums);
-        //a + b + c = 0 等同于 a = -(b + c)
-        for (int i = 0; i < nums.length - 3; i++) {
-
-        }
-        return null;
-    }
-
     public static List<List<Integer>> threeSum(int[] nums) {
         if (nums.length == 0 || nums.length == 1) {
             return new ArrayList<>();
